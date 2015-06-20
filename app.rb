@@ -10,6 +10,9 @@ before do
             'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
 end
 
+
+
+
 class Application < Sinatra::Base
   helpers Demo::PrettyPrint
 
