@@ -1,7 +1,14 @@
 require 'sinatra'
+require 'json'
 require 'braintree'
 require_relative 'helpers/pretty_print.rb'
-require 'json'
+require_relative 'routes/postItem.rb'
+
+before do
+   content_type :json
+   headers 'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
+end
 
 class Application < Sinatra::Base
   helpers Demo::PrettyPrint
@@ -12,6 +19,21 @@ class Application < Sinatra::Base
   Braintree::Configuration.private_key = '57116180e9494437aec573851fead6d5'
 
 # USER - minimum
+  options "*" do
+    response.headers["Allow"] = "HEAD,GET,PUT,DELETE,OPTIONS"
+    # Needed for AngularJS
+    response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
+  end
+
+  configure do
+    enable :cross_origin
+  end
+
+  # junk
+ get('/', :provides => 'text/html') do
+   erb :index
+ end
+
   # create user
   post ('/user/new') do
     params = JSON.parse request.body.read
@@ -37,6 +59,8 @@ class Application < Sinatra::Base
   end
 
   # post payment method to user
+  # post '/user/?:user_id?/payment_method/new'
+  # end
   post '/user/?:user_id?/payment_method/new' do
     params = JSON.parse request.body.read
     result = Braintree::PaymentMethod.create(
