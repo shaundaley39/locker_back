@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'braintree'
 require_relative 'helpers/pretty_print.rb'
-# require_relative 'routes/postItem.rb'
+require_relative 'routes/postItem.rb'
 require 'json'
 
 class Application < Sinatra::Base
