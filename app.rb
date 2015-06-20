@@ -11,27 +11,7 @@ class Application < Sinatra::Base
   Braintree::Configuration.public_key = 'csfcqr83rr7htjj3'
   Braintree::Configuration.private_key = '57116180e9494437aec573851fead6d5'
 
-  # junk
-#  get('/', :provides => 'text/html') do
-#    erb :index
-#  end
-#  # junk
-#  get('/', :provides => 'application/json') do
-#    content_type :json
-#    return {:cities=> ["Amsterdam", "San Francisco", "Berlin", "New York", "Tokyo", "London"]}.to_json
-#  end
-
-   # depricated 
-#  get('/client_token', :provides => 'text/html') do
-#    # client_token
-#    Braintree::ClientToken.generate()
-#  end
-#  get('/client_token', :provides => 'application/json') do
-#    # client_token
-#    content_type :json
-#    Braintree::ClientToken.generate().to_json
-#  end
-
+# USER - minimum
   # create user
   post ('/user/new') do
     params = JSON.parse request.body.read
@@ -65,5 +45,11 @@ class Application < Sinatra::Base
     )
   end
 
+
   # make sale
+
+# ITEM m
+
+
+# LOCKER
 end
