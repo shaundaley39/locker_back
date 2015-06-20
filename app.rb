@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'braintree'
 require_relative 'helpers/pretty_print.rb'
+# require_relative 'routes/postItem.rb'
 require 'json'
 
 class Application < Sinatra::Base
@@ -61,8 +62,8 @@ class Application < Sinatra::Base
   end
 
   # post payment method to user
-  post '/user/?:user_id?/payment_method/new'
-  end
+  # post '/user/?:user_id?/payment_method/new'
+  # end
 
 #  get post %r{/user/(?<user_id>.+$} do
 #    customer = Braintree::Customer.find(user_id)
