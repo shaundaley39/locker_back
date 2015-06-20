@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A Braintree Recurring Payments Example</title>
+
+  <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css">
+  <script src='/components/jquery/dist/jquery.min.js'></script>
+  <script src='/components/bootstrap/dist/js/bootstrap.min.js'></script>
+</head>
+<body>
+  <div class='container'>
+    <div class="row">
+      <header>
+        <h1>Payment Success</h1>
+      </header>
+    </div>
+
+    <div class="row">
+      <h2>Params</h2>
+      <%= @params.ai(html: true, plain: true) %>
+    </div>
+
+    <div class="row">
+      <h2>Braintree::Transaction</h2>
+      <%= pretty_print @transaction %>
+    </div>
+  </div>
+</body>
+</html>

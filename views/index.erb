@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A Braintree Credit Card Payment Example</title>
+
+  <link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css'>
+
+</head>
+<body>
+  <div class='container'>
+
+    <br>
+
+    <div class='well'>
+
+
+    <form id='braintree-payment-form' action='/process' method='post' role='form' class='form-horizontal'>
+      <div class='form-group'>
+        <label class='col-sm-3 control-label'>Amount</label>
+        <div class='col-sm-9'>
+          <input type='text' name='amount' placeholder='XXX' class='form-control' id='amount'>
+        </div>
+      </div>
+      <div class='form-group'>
+        <label class='col-sm-3 control-label'>Number</label>
+        <div class='col-sm-9'>
+          <input type='text' data-encrypted-name='number' placeholder='XXXX XXXX XXXX XXXX' class='form-control' id='number'>
+        </div>
+      </div>
+      <div class='form-group'>
+        <label class='col-sm-3 control-label'>CVV</label>
+        <div class='col-sm-9'>
+          <input type='text' data-encrypted-name='cvv' placeholder='XXX' class='form-control' id='cvv'>
+        </div>
+      </div>
+      <div class='form-group'>
+        <label class='col-sm-3 control-label'>Expiration date</label>
+        <div class='col-sm-9'>
+          <input type='text' data-encrypted-name='expiration_date' placeholder='MM/YYYY' class='form-control' id='expiration_date'>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <div class='col-sm-9 col-sm-offset-3'>
+          <input type='submit' value='Submit' class='btn btn-primary'>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+
+  <script src='/braintree.js' type='text/javascript'></script>
+  <script>
+    var braintree = Braintree.create('MIIBCgKCAQEA8ror86dgkI55PGc1Fq6kRhDzZAIZszELcFIjMHJ5LwXZIpH+ReC9yQpOZkiiY/K3Q1+mZBjrDXf/yu77hJ4Hs/yr4lUEo4c5zGpEdsVdWR2Ndw+yr925ODFDYiKU9W8xIBgbytNky+wKgiC0M7PlL7mzmmNEQZGDuyyygNDwmnSAoxVllne6KXxJt1akxPsdSzSiResmNlHLzwVf3gpQ2hA8GBq4m1B0EXI0oXnh2VLM9SiSDym6Xu7ad2089ct2cA11ODzubigkFD8sxrz/a4a5RWjf0rWc++ihDEkAWFZD6f395LMVAUdpf8QtH799vUEcDYqG4YOnoAQ5HXENJQIDAQAB');
+    braintree.onSubmitEncryptForm('braintree-payment-form');
+  </script>
+</body>
+</html>
