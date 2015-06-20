@@ -61,7 +61,12 @@ class Application < Sinatra::Base
   end
 
   # post payment method to user
-  post '/user/?:user_id?/payment_method/new'
+  post '/user/?:user_id?/payment_method/new' do
+    params = JSON.parse request.body.read
+    result = Braintree::PaymentMethod.create(
+      :customer_id => params[:user_id],
+      :payment_method_nonce => params["payment_method_nonce"]
+    )
   end
 
 #  get post %r{/user/(?<user_id>.+$} do
