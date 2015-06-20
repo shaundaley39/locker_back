@@ -11,30 +11,26 @@ class Application < Sinatra::Base
   Braintree::Configuration.public_key = 'csfcqr83rr7htjj3'
   Braintree::Configuration.private_key = '57116180e9494437aec573851fead6d5'
 
-  get('/', :provides => 'text/html') do
-    erb :index
-  end
+  # junk
+#  get('/', :provides => 'text/html') do
+#    erb :index
+#  end
+#  # junk
+#  get('/', :provides => 'application/json') do
+#    content_type :json
+#    return {:cities=> ["Amsterdam", "San Francisco", "Berlin", "New York", "Tokyo", "London"]}.to_json
+#  end
 
-  get('/', :provides => 'application/json') do
-    content_type :json
-    return {:cities=> ["Amsterdam", "San Francisco", "Berlin", "New York", "Tokyo", "London"]}.to_json
-  end
-  # get customer_id from God knows where
-  # 1 give client_token to user
-  # 2 get payment_method_nonce from user
-  # 3 create customer
-  # 4 create sales using the customer object
-
-  get('/client_token', :provides => 'text/html') do
-    # client_token
-    Braintree::ClientToken.generate()
-  end
-
-  get('/client_token', :provides => 'application/json') do
-    # client_token
-    content_type :json
-    Braintree::ClientToken.generate().to_json
-  end
+   # depricated 
+#  get('/client_token', :provides => 'text/html') do
+#    # client_token
+#    Braintree::ClientToken.generate()
+#  end
+#  get('/client_token', :provides => 'application/json') do
+#    # client_token
+#    content_type :json
+#    Braintree::ClientToken.generate().to_json
+#  end
 
   # create user
   post ('/user/new') do
@@ -69,13 +65,5 @@ class Application < Sinatra::Base
     )
   end
 
-#  get post %r{/user/(?<user_id>.+$} do
-#    customer = Braintree::Customer.find(user_id)
-   # return customer.
-  #  end
-  #
-  #  new flow
-  #  1) post create user
-  #  2) get client token
-  #  3) post new transaction method
+  # make sale
 end
