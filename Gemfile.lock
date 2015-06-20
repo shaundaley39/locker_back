@@ -3,7 +3,7 @@ GEM
   specs:
     awesome_print (1.2.0)
     backports (3.6.4)
-    braintree (2.30.0)
+    braintree (2.45.0)
       builder (>= 2.0.0)
     builder (3.2.2)
     capybara (2.2.1)
