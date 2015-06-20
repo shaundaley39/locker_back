@@ -1,8 +1,14 @@
 require 'sinatra'
+require 'json'
 require 'braintree'
 require_relative 'helpers/pretty_print.rb'
 require_relative 'routes/postItem.rb'
-require 'json'
+
+before do
+   content_type :json
+   headers 'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
+end
 
 class Application < Sinatra::Base
   helpers Demo::PrettyPrint
@@ -11,6 +17,16 @@ class Application < Sinatra::Base
   Braintree::Configuration.merchant_id = 'x5k5hw2qskhtc7tt'
   Braintree::Configuration.public_key = 'csfcqr83rr7htjj3'
   Braintree::Configuration.private_key = '57116180e9494437aec573851fead6d5'
+
+  options "*" do
+    response.headers["Allow"] = "HEAD,GET,PUT,DELETE,OPTIONS"
+    # Needed for AngularJS
+    response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
+  end
+
+  configure do
+    enable :cross_origin
+  end
 
   # junk
  get('/', :provides => 'text/html') do
