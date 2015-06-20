@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'braintree'
 require_relative 'helpers/pretty_print.rb'
+require 'json'
 
 class Application < Sinatra::Base
   helpers Demo::PrettyPrint
@@ -11,6 +12,13 @@ class Application < Sinatra::Base
   Braintree::Configuration.private_key = 'a3de3bb7dddf68ed3c33f4eb6d9579ca'
 
   get '/' do
+    erb :index
+  end
+
+  get '/.json' do
+    content_type :json
+    return {:cities=> ["Amsterdam", "San Francisco", "Berlin", "New York", "Tokyo", "London"]}.to_json
+    content_type :html
     erb :index
   end
 
