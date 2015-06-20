@@ -11,20 +11,13 @@ class Application < Sinatra::Base
   Braintree::Configuration.public_key = 'qj65nndbnn6qyjkp'
   Braintree::Configuration.private_key = 'a3de3bb7dddf68ed3c33f4eb6d9579ca'
 
-  get '/' :provides => [:html, :json] do
-    respond_to do |f|
-      f.html
-        erb :index
-      f.json
-        content_type :json
-        return {:cities=> ["Amsterdam", "San Francisco", "Berlin", "New York", "Tokyo", "London"]}.to_json
+  get('/', :provides => 'text/html') do
+    erb :index
   end
 
-  get '/.json' do
+  get('/', :provides => 'application/json') do
     content_type :json
     return {:cities=> ["Amsterdam", "San Francisco", "Berlin", "New York", "Tokyo", "London"]}.to_json
-    content_type :html
-    erb :index
   end
 
   post '/process' do
