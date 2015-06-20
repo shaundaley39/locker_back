@@ -43,10 +43,29 @@ class Application < Sinatra::Base
       :customer_id => params[:user_id],
       :payment_method_nonce => params["payment_method_nonce"]
     )
+    # to do: this result should be a payment token - and we need to persist this
+#    puts result.payment_method_token # does this work
   end
 
 
+# EXPERIMENTAL GAMES
+  # from customer id, setup a transaction
+  post '/magic/item/?:item_id?/buy' do
+    params = JSON.parse request.body.read
+    customer = Braintree::Customer.find("#{params["user_id"]}")
+    payment_method_token = customer.credit_card.payment_method_token   # this requires modification - probably
+    payment_method = Braintree::PaymentMethod.find("payment_method_token")
+
+  end
+
   # make sale
+  post '/item/?:item_id?/buy' do
+    params = JSON.parse request.body.read
+    # for our current user, get :token from persisted place...
+    # price =... lookup item by params[:item_id] and extract price
+    # payment_method = Braintree::PaymentMethod.find( :token)
+  end
+
 
 # ITEM m
 
