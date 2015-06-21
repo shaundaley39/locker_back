@@ -12,6 +12,7 @@ end
 
 class Application < Sinatra::Base
   helpers Demo::PrettyPrint
+  set :public_folder, 'public'
 
   Braintree::Configuration.environment = :sandbox
   Braintree::Configuration.merchant_id = 'x5k5hw2qskhtc7tt'
@@ -25,14 +26,11 @@ class Application < Sinatra::Base
     response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
   end
 
-  configure do
-    enable :cross_origin
-  end
 
   # junk
- get('/', :provides => 'text/html') do
-   erb :index
- end
+ # get '/' do
+ #   erb :index
+ # end
 
   # create user
   post ('/user/new') do
