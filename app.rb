@@ -3,11 +3,11 @@ require 'json'
 require 'braintree'
 require_relative 'helpers/pretty_print.rb'
 require_relative 'routes/postItem.rb'
+require_relative 'models/item.rb'
 
 before do
-   content_type :json
-   headers 'Access-Control-Allow-Origin'  => '*',
-           'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
+  content_type :json
+  headers 'Access-Control-Allow-Origin'  => '*', 'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
 end
 
 class Application < Sinatra::Base
@@ -28,6 +28,16 @@ class Application < Sinatra::Base
   configure do
     enable :cross_origin
   end
+
+  # not persisted - a crude and evil hack not worthy
+  items = {}
+  item1 = Item.new(1, 666, "Berlin", "Beer", "cold and mind-nourishing", 1.50, "beer3.jpg", 22)
+  item2 = Item.new(2, 667, "Berlin", "Whisky", "smokey and refined", 10.50, "whisky5.jpg", 22)
+  item3 = Item.new(3, 676, "Berlin", "Gin", "sailor juice", 2.50, "gin35.jpg", 22)
+  item4 = Item.new(4, 766, "Berlin", "Cider", "drink for the ladies", 1.20, "cider4334.jpg", 22)
+  item5 = Item.new(5, 866, "Berlin", "Vodka", "throat burning to foreshadow vomit", 6.50, "vodka435.jpg", 22)
+  items = {1 => item1, 2 => item2, 3 => item3, 4 => item4, 5 => item5 }
+
 
   # junk
  get('/', :provides => 'text/html') do
@@ -77,18 +87,35 @@ class Application < Sinatra::Base
   post '/item/?:item_id?/buy' do
    # params = JSON.parse request.body.read
     # we should look up the item by id, and obtain its price to use as amount for transaction below
+    item = items[ params[:item_id] ]
     customer = Braintree::Customer.find("57369861")    #"#{params["user_id"]}")
     payment_method_token = customer.credit_cards.first.token
     result = Braintree::Transaction.sale(
       :payment_method_token => payment_method_token,
-      :amount => "10.00"
+      :amount => item.price
     )
     puts "Did we score? #{result.success?}"
+    if result.success?
+      items.buyer_id = 57369861        # here we should be using user id, conveyed as part of the post request... but for the demo we only have one user
+      item.sold = true
+    end
   end
 
-
 # ITEM m
-
-
+  # insecure approach - but it'll do for now
+  post '/item/new' do
+    # e.g. item = Item.new(2, 666, "Berlin", "Beer", "cold and mind-nourishing", 1.50, "aaaa.jpg", 22)
+    params = JSON.parse request.body.read
+    item = Item.new(params["seller_id"], params["locker_id"], params["city_id"], params["name"], params["description"], params["price"], params["image"], params["buyer_id"])
+    items[item_id] = item
+  end
+  
+  # e.g.    /items/Berlin
+  get '/items/?:city?' do
+    content_type :json
+ 
+    # here, we must instead
+    items.select {|k,v| v.sold == false && params[:city] == v.city}.values.map{|v| [v.name, v.description, v.price, v.image]}.to_json
+  end
 # LOCKER
 end

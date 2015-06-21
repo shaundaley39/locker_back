@@ -1,3 +1,7 @@
+desc "database... neo..."
+load 'neo4j/tasks/neo4j_server.rake'
+load 'neo4j/tasks/migration.rake'
+
 desc "Set up and run tests"
 task :default => [:test]
 

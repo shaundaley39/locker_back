@@ -12,3 +12,6 @@ gem 'headless'
 gem 'selenium-webdriver'
 gem 'awesome_print'
 gem 'rerun'
+
+gem 'neo4j-core'
+gem 'neo4j', '~> 4.1.1'

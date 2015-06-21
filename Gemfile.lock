@@ -1,6 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    active_attr (0.8.5)
+      activemodel (>= 3.0.2, < 5.0)
+      activesupport (>= 3.0.2, < 5.0)
+    activemodel (4.2.2)
+      activesupport (= 4.2.2)
+      builder (~> 3.1)
+    activesupport (4.2.2)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
     awesome_print (1.2.0)
     backports (3.6.4)
     braintree (2.45.0)
@@ -17,9 +29,18 @@ GEM
     childprocess (0.5.3)
       ffi (~> 1.0, >= 1.0.11)
     diff-lcs (1.2.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     ffi (1.9.3)
     headless (1.0.1)
     hitimes (1.2.2)
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    httpclient (2.6.0.1)
+    i18n (0.7.0)
     json (1.8.1)
     listen (2.10.1)
       celluloid (~> 0.16.0)
@@ -27,9 +48,31 @@ GEM
       rb-inotify (>= 0.9)
     mime-types (2.2)
     mini_portile (0.5.3)
+    minitest (5.7.0)
     multi_json (1.9.3)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
+    neo4j (4.1.5)
+      active_attr (~> 0.8)
+      activemodel (~> 4)
+      activesupport (~> 4)
+      neo4j-core (~> 4.0.0)
+      orm_adapter (~> 0.5.0)
+    neo4j-core (4.0.7)
+      activesupport
+      faraday (~> 0.9.0)
+      faraday_middleware (~> 0.9.1)
+      httparty
+      httpclient
+      json
+      net-http-persistent
+      os
+      zip
+    net-http-persistent (2.9.4)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    orm_adapter (0.5.0)
+    os (0.9.6)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -66,12 +109,16 @@ GEM
       sinatra (~> 1.4.0)
       tilt (>= 1.3, < 3)
     sinatra-cross_origin (0.3.2)
+    thread_safe (0.3.5)
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
     websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    zip (2.0.2)
 
 PLATFORMS
   ruby
@@ -82,6 +129,8 @@ DEPENDENCIES
   capybara
   headless
   json
+  neo4j (~> 4.1.1)
+  neo4j-core
   rerun
   rspec
   selenium-webdriver
