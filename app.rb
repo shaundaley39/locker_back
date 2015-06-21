@@ -104,7 +104,7 @@ class Application < Sinatra::Base
     return params.to_json
   end
   # e.g.    /items/Berlin
-  get '/items/?:city?' do
+  get '/api/items/?:city?' do
     content_type :json
     puts items
     # here, we must instead
